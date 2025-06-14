@@ -16,13 +16,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.layout;
+package ykkz000.cobblestone.client.impl.hud;
+
+import net.minecraft.client.gui.DrawContext;
+import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
 
 /**
- * Position of an element.
+ * GUI context implementation.
  *
+ * @param drawContext Draw context
  * @author ykkz000
  */
-public record Position(int x, int y) {
-    public static final Position DEFAULT_POSITION = new Position(0, 0);
+public record GuiContextImpl(DrawContext drawContext) implements GuiContext {
+    @Override
+    public void pushMatrix() {
+        drawContext.getMatrices().push();
+    }
+
+    @Override
+    public void translate(double x, double y) {
+        drawContext.getMatrices().translate(x, y, 0);
+    }
+
+    @Override
+    public void popMatrix() {
+        drawContext.getMatrices().pop();
+    }
 }

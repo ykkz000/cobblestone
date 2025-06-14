@@ -25,6 +25,7 @@ Cobblestone API 是专为 Minecraft 模组开发者设计的核心工具库，�
 |----------|----------------|
 | 所有运行时依赖项 | Apache-2.0/MIT |
 | 构建工具链    | MIT            |
+
 [查看DEPENDENCIES文件](DEPENDENCIES)
 
 ### 合规说明

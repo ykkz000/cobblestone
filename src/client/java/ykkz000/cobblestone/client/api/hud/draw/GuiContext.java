@@ -16,13 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.layout;
+package ykkz000.cobblestone.client.api.hud.draw;
 
 /**
- * Position of an element.
+ * Interface for GUI context. The API will not change with Minecraft version.
  *
  * @author ykkz000
+ * @apiNote Please do not implement this interface.
  */
-public record Position(int x, int y) {
-    public static final Position DEFAULT_POSITION = new Position(0, 0);
+public interface GuiContext {
+    void pushMatrix();
+    void translate(double x, double y);
+    void popMatrix();
 }

@@ -21,8 +21,8 @@ package ykkz000.cobblestone.client.api.hud.element;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
 import ykkz000.cobblestone.client.api.hud.layout.Layout;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class PanelElement extends BaseElement {
     }
 
     @Override
-    public void render(DrawContext context) {
+    public void render(GuiContext context) {
         layout.layoutChildren(this, children);
         children.forEach(e -> e.tryRender(context));
     }

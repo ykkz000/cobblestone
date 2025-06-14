@@ -22,46 +22,32 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.util.Identifier;
+import ykkz000.cobblestone.client.api.hud.draw.DrawUtils;
 import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
 import ykkz000.cobblestone.client.api.hud.layout.Position;
-import ykkz000.cobblestone.client.api.hud.layout.Size;
-import ykkz000.cobblestone.client.api.hud.draw.DrawUtils;
 
 /**
- * Text element.
+ * Texture element. This element will draw a texture.
  *
  * @author ykkz000
+ * @apiNote Texture size should be the same as the size of the element. And also uv will be (0, 0).
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class TextElement extends BaseElement {
-    protected String text = "";
-    protected int color = 0xFFFFFF;
-    protected boolean shadow = false;
+public class TextureElement extends BaseElement {
+    private Identifier texture;
 
-    public static BaseElement.Builder<TextElement> builder() {
-        return TextElement::new;
+    public static BaseElement.Builder<TextureElement> builder() {
+        return TextureElement::new;
     }
 
-    protected TextElement(Identifier id) {
+    protected TextureElement(Identifier id) {
         super(id);
     }
 
     @Override
     public void render(GuiContext context) {
-        DrawUtils.drawText(context, text, Position.DEFAULT_POSITION, color, shadow);
-    }
-
-    public void adjustToPerfectHeight() {
-        size = new Size(size.width(), DrawUtils.fontHeight());
-    }
-
-    public void adjustToPerfectWidth() {
-        size = new Size(DrawUtils.stringWidth(text), size.height());
-    }
-
-    public void adjustToPerfectSize() {
-        size = new Size(DrawUtils.stringWidth(text), DrawUtils.fontHeight());
+        DrawUtils.drawTexture(context, texture, Position.DEFAULT_POSITION, size);
     }
 }

@@ -18,19 +18,11 @@
 
 package ykkz000.cobblestone.client.api.hud.layout;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * Size of an element.
  *
  * @author ykkz000
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Size {
-    private int width;
-    private int height;
+public record Size(int width, int height) {
+    public static final Size DEFAULT_SIZE = new Size(0, 0);
 }

@@ -19,9 +19,9 @@
 package ykkz000.cobblestone.client.api.hud;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
+import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
 import ykkz000.cobblestone.client.api.hud.element.BaseElement;
 import ykkz000.cobblestone.client.api.hud.element.PanelElement;
 import ykkz000.cobblestone.client.api.hud.layout.Layout;
@@ -40,6 +40,9 @@ public final class HudSystem {
     private static final Identifier ROOT_ID = Identifier.of("cobblestone", "root");
     private static final Map<Identifier, BaseElement> ELEMENTS = new HashMap<>();
     private static final RootPanelElement ROOT = createElement(ROOT_ID, RootPanelElement.rootbBuilder());
+
+    private HudSystem() {
+    }
 
     /**
      * Get the root panel.
@@ -100,11 +103,11 @@ public final class HudSystem {
     /**
      * Render the HUD.
      *
-     * @param context     Draw context
+     * @param context     GUI context
      * @param tickCounter Render tick counter
      * @apiNote This method is called automatically by the game.
      */
-    public static void render(DrawContext context, RenderTickCounter tickCounter) {
+    public static void render(GuiContext context, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         ROOT.setRootSize(new Size(client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight()));
         ROOT.tryRender(context);
@@ -117,8 +120,8 @@ public final class HudSystem {
 
         protected RootPanelElement(Identifier id) {
             super(id);
-            position = new Position(0, 0);
-            size = new Size(0, 0);
+            position = Position.DEFAULT_POSITION;
+            size = Size.DEFAULT_SIZE;
             visibility = true;
         }
 

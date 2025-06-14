@@ -16,26 +16,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.mixin;
+package ykkz000.cobblestone.mixin.event;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ykkz000.cobblestone.client.api.hud.HudSystem;
+import ykkz000.cobblestone.api.event.EntityTickEvents;
 
 /**
- * Mixin for InGameHud. This mixin is used to render custom HUDs.
+ * Mixin for Entity. Allows developers to add more events to the entity.
  *
  * @author ykkz000
  */
-@Mixin(InGameHud.class)
-public abstract class InGameHudMixin {
-    @Inject(method = "render(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V", at = @At("RETURN"))
-    private void renderCustomHuds(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        HudSystem.render(context, tickCounter);
+@Mixin(Entity.class)
+public abstract class EntityMixin {
+    @Inject(method = "tick()V", at = @At("HEAD"))
+    private void startTick(CallbackInfo ci) {
+        EntityTickEvents.START_ENTITY_TICK.invoker().onStartTick((Entity) (Object) this);
+    }
+
+    @Inject(method = "tick()V", at = @At("RETURN"))
+    private void endTick(CallbackInfo ci) {
+        EntityTickEvents.END_ENTITY_TICK.invoker().onEndTick((Entity) (Object) this);
     }
 }

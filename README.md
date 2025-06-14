@@ -31,6 +31,7 @@ Use Gradle build tool to compile the project.
 |------------------|----------------|
 | All dependencies | Apache-2.0/MIT |
 | Build toolchain  | MIT            |
+
 [View DEPENDENCIES file](DEPENDENCIES)
 
 ### Compliance Notes

@@ -21,9 +21,9 @@ package ykkz000.cobblestone.client.api.hud.element;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import ykkz000.cobblestone.client.api.hud.HudSystem;
+import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
 import ykkz000.cobblestone.client.api.hud.layout.Layout;
 import ykkz000.cobblestone.client.api.hud.layout.Position;
 import ykkz000.cobblestone.client.api.hud.layout.Size;
@@ -63,25 +63,25 @@ public abstract class BaseElement {
     /**
      * Try to render the element. If the element is not visible, nothing will happen.
      *
-     * @param context Draw context
-     * @see #render(DrawContext)
+     * @param context GUI context
+     * @see #render(GuiContext)
      */
-    public void tryRender(DrawContext context) {
+    public void tryRender(GuiContext context) {
         if (visibility) {
-            context.getMatrices().push();
-            context.getMatrices().translate(position.getX(), position.getY(), 0);
+            context.pushMatrix();
+            context.translate(position.x(), position.y());
             render(context);
-            context.getMatrices().pop();
+            context.popMatrix();
         }
     }
 
     /**
-     * Render the element. This method will be called by {@link #tryRender(DrawContext)}.
+     * Render the element. This method will be called by {@link #tryRender(GuiContext)}.
      *
-     * @param context Draw context
-     * @apiNote The draw context's matrix will be translated to the element's position before this method is called.
+     * @param context GUI context
+     * @apiNote The GUI context's matrix will be translated to the element's position before this method is called.
      */
-    public abstract void render(DrawContext context);
+    public abstract void render(GuiContext context);
 
     @Override
     public int hashCode() {

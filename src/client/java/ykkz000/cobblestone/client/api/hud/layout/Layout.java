@@ -54,14 +54,14 @@ public interface Layout {
         return (parent, children) -> {
             for (BaseElement child : children) {
                 int x = switch (child.getHorizontalAlignment()) {
-                    case START -> child.getPosition().getX();
+                    case START -> child.getPosition().x();
                     case CENTER -> throw new IllegalStateException("Relative layout does not support center alignment");
-                    case END -> parent.getSize().getWidth() - child.getPosition().getX();
+                    case END -> parent.getSize().width() - child.getPosition().x();
                 };
                 int y = switch (child.getVerticalAlignment()) {
-                    case START -> child.getPosition().getY();
+                    case START -> child.getPosition().y();
                     case CENTER -> throw new IllegalStateException("Relative layout does not support center alignment");
-                    case END -> parent.getSize().getHeight() - child.getPosition().getY();
+                    case END -> parent.getSize().height() - child.getPosition().y();
                 };
                 child.setTruePosition(new Position(x, y));
             }
@@ -79,11 +79,11 @@ public interface Layout {
             for (BaseElement child : children) {
                 int y = switch (child.getVerticalAlignment()) {
                     case START -> 0;
-                    case CENTER -> (parent.getSize().getHeight() - child.getSize().getHeight()) / 2;
-                    case END -> parent.getSize().getHeight() - child.getSize().getHeight();
+                    case CENTER -> (parent.getSize().height()- child.getSize().height()) / 2;
+                    case END -> parent.getSize().height() - child.getSize().height();
                 };
                 child.setTruePosition(new Position(x, y));
-                x += child.getSize().getWidth();
+                x += child.getSize().width();
             }
         };
     }
@@ -99,11 +99,11 @@ public interface Layout {
             for (BaseElement child : children) {
                 int x = switch (child.getHorizontalAlignment()) {
                     case START -> 0;
-                    case CENTER -> (parent.getSize().getWidth() - child.getSize().getWidth()) / 2;
-                    case END -> parent.getSize().getWidth() - child.getSize().getWidth();
+                    case CENTER -> (parent.getSize().width() - child.getSize().width()) / 2;
+                    case END -> parent.getSize().width() - child.getSize().width();
                 };
                 child.setTruePosition(new Position(x, y));
-                y += child.getSize().getHeight();
+                y += child.getSize().height();
             }
         };
     }
@@ -117,19 +117,19 @@ public interface Layout {
      */
     static Layout grid(int rows, int columns) {
         return (parent, children) -> {
-            int deltaX = parent.getSize().getWidth() / columns;
-            int deltaY = parent.getSize().getHeight() / rows;
+            int deltaX = parent.getSize().width() / columns;
+            int deltaY = parent.getSize().height() / rows;
             for (int i = 0; i < children.size(); i++) {
                 BaseElement child = children.get(i);
                 int x = (i % columns) * deltaX + switch (child.getHorizontalAlignment()) {
                     case START -> 0;
-                    case CENTER -> (deltaX - child.getSize().getWidth()) / 2;
-                    case END -> deltaX - child.getSize().getWidth();
+                    case CENTER -> (deltaX - child.getSize().width()) / 2;
+                    case END -> deltaX - child.getSize().width();
                 };
                 int y = (i / columns) * deltaY + switch (child.getVerticalAlignment()) {
                     case START -> 0;
-                    case CENTER -> (deltaY - child.getSize().getHeight()) / 2;
-                    case END -> deltaY - child.getSize().getHeight();
+                    case CENTER -> (deltaY - child.getSize().height()) / 2;
+                    case END -> deltaY - child.getSize().height();
                 };
                 child.setTruePosition(new Position(x, y));
             }

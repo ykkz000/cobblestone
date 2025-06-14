@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "data.LivingEntityMixin",
+    "event.EntityMixin",
     "event.ServerPlayerEntityMixin"
   ],
   "injectors": {
