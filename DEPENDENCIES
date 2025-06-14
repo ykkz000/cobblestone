@@ -1,0 +1,38 @@
+================================================================================
+DEPENDENCY LICENSES
+================================================================================
+
+[Fabric API]
+License: Apache-2.0
+URL: https://github.com/FabricMC/fabric
+Copyright: Copyright (c) 2016-2023 FabricMC
+
+[Jackson Core]
+License: Apache-2.0
+URL: https://github.com/FasterXML/jackson-core
+Copyright: Copyright (c) 2007-2023 FasterXML
+
+[Jackson Databind]
+License: Apache-2.0
+URL: https://github.com/FasterXML/jackson-databind
+Copyright: Copyright (c) 2007-2023 FasterXML
+
+[Jackson Annotations]
+License: Apache-2.0
+URL: https://github.com/FasterXML/jackson-annotations
+Copyright: Copyright (c) 2007-2023 FasterXML
+
+[Lombok]
+License: MIT
+URL: https://projectlombok.org/
+Copyright: Copyright (c) 2009-2023 The Project Lombok Authors
+
+[Fabric Loom]
+License: MIT
+URL: https://github.com/FabricMC/fabric-loom
+Copyright: Copyright (c) 2016-2023 FabricMC
+
+[Fabric Loader JUnit]
+License: Apache-2.0
+URL: https://github.com/FabricMC/fabric-loader
+Copyright: Copyright (c) 2016-2023 FabricMC

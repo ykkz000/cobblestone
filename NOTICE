@@ -1,0 +1,10 @@
+This software is licensed under the GNU Lesser General Public License v3.0.
+
+Third-party components:
+1. Fabric API - Copyright (c) 2016-2023 FabricMC - Apache-2.0
+2. Jackson Core - Copyright (c) 2007-2023 FasterXML - Apache-2.0
+3. Jackson Databind - Copyright (c) 2007-2023 FasterXML - Apache-2.0
+4. Jackson Annotations - Copyright (c) 2007-2023 FasterXML - Apache-2.0
+5. Lombok - Copyright (c) 2009-2023 The Project Lombok Authors - MIT
+6. Fabric Loom - Copyright (c) 2016-2023 FabricMC - MIT
+7. Fabric Loader JUnit - Copyright (c) 2016-2023 FabricMC - Apache-2.0

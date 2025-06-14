@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ykkz000.cobblestone.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "data.LivingEntityMixin",
+    "event.ServerPlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
