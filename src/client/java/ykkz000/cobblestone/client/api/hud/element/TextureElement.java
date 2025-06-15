@@ -36,8 +36,16 @@ import ykkz000.cobblestone.client.api.hud.layout.Position;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class TextureElement extends BaseElement {
+    /**
+     * Texture id. Default is null. If null, nothing will be drawn.
+     */
     private Identifier texture;
 
+    /**
+     * Get a builder.
+     *
+     * @return Builder
+     */
     public static BaseElement.Builder<TextureElement> builder() {
         return TextureElement::new;
     }
@@ -48,6 +56,9 @@ public class TextureElement extends BaseElement {
 
     @Override
     public void render(GuiContext context) {
+        if (texture == null) {
+            return;
+        }
         DrawUtils.drawTexture(context, texture, Position.DEFAULT_POSITION, size);
     }
 }

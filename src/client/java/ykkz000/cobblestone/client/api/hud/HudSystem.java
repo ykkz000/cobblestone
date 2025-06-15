@@ -18,6 +18,7 @@
 
 package ykkz000.cobblestone.client.api.hud;
 
+import lombok.NonNull;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
@@ -48,7 +49,7 @@ public final class HudSystem {
      * Get the root panel.
      *
      * @return Root panel
-     * @apiNote The root panel cannot be removed. And also, the layout, position, size and visibility of the root panel cannot be changed. The layout will always be absolute layout. The position will always be (0, 0). The size will always be the screen size. The visibility will always be true.
+     * @apiNote The root panel cannot be removed. And also, the layout, position, size and visibility of the root panel cannot be changed. The layout will always be relative layout. The position will always be {@link Position#DEFAULT_POSITION}. The size will always be {@link Size#DEFAULT_SIZE}. The visibility will always be true.
      */
     public static PanelElement getRootPanel() {
         return ROOT;
@@ -123,20 +124,21 @@ public final class HudSystem {
             position = Position.DEFAULT_POSITION;
             size = Size.DEFAULT_SIZE;
             visibility = true;
+            layout = Layout.relative();
         }
 
         @Override
-        public void setLayout(Layout layout) {
+        public void setLayout(@NonNull Layout layout) {
             throw new UnsupportedOperationException("Cannot set layout for root panel");
         }
 
         @Override
-        public void setPosition(Position position) {
+        public void setPosition(@NonNull Position position) {
             throw new UnsupportedOperationException("Cannot set position for root panel");
         }
 
         @Override
-        public void setSize(Size size) {
+        public void setSize(@NonNull Size size) {
             throw new UnsupportedOperationException("Cannot set size for root panel");
         }
 
@@ -145,7 +147,7 @@ public final class HudSystem {
             throw new UnsupportedOperationException("Cannot set visibility for root panel");
         }
 
-        private void setRootSize(Size size) {
+        private void setRootSize(@NonNull Size size) {
             this.size = size;
         }
     }

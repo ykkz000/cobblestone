@@ -20,6 +20,7 @@ package ykkz000.cobblestone.client.api.hud.element;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import net.minecraft.util.Identifier;
 import ykkz000.cobblestone.client.api.hud.HudSystem;
@@ -36,19 +37,57 @@ import ykkz000.cobblestone.client.api.hud.layout.Size;
 @Getter
 @Setter
 public abstract class BaseElement {
+    /**
+     * Element id.
+     */
+    @NonNull
     protected final Identifier id;
+    /**
+     * Parent panel. Default is null.
+     */
     @Setter(AccessLevel.PROTECTED)
     protected PanelElement parent;
+    /**
+     * Horizontal alignment of the element. Default is START.
+     */
+    @NonNull
     protected Layout.Alignment horizontalAlignment;
+    /**
+     * Vertical alignment of the element. Default is START.
+     */
+    @NonNull
     protected Layout.Alignment verticalAlignment;
+    /**
+     * Position of the element. Default is {@link Position#DEFAULT_POSITION}.
+     */
+    @NonNull
     protected Position position;
+    /**
+     * Size of the element. Default is {@link Size#DEFAULT_SIZE}.
+     */
+    @NonNull
     protected Size size;
+    /**
+     * Visibility of the element. Default is true.
+     */
     protected boolean visibility;
+    /**
+     * True position of the element. Default is {@link Position#DEFAULT_POSITION}.
+     *
+     * @apiNote This field is calculated by the layout before rendering the element. So in most time your manual changes will not affect this field.
+     */
+    @NonNull
     protected Position truePosition;
 
     protected BaseElement(Identifier id) {
         this.id = id;
         this.parent = null;
+        this.horizontalAlignment = Layout.Alignment.START;
+        this.verticalAlignment = Layout.Alignment.START;
+        this.position = Position.DEFAULT_POSITION;
+        this.size = Size.DEFAULT_SIZE;
+        this.visibility = true;
+        this.truePosition = Position.DEFAULT_POSITION;
     }
 
     /**

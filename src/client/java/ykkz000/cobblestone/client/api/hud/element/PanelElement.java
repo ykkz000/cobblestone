@@ -20,6 +20,7 @@ package ykkz000.cobblestone.client.api.hud.element;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import net.minecraft.util.Identifier;
 import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
@@ -37,30 +38,39 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class PanelElement extends BaseElement {
-    protected final List<BaseElement> children = new ArrayList<>();
+    /**
+     * Children of the panel.
+     *
+     * @apiNote The implementation of this field is {@link ArrayList}.
+     */
+    protected final List<BaseElement> children;
+    /**
+     * Layout of the panel. Default is absolute layout.
+     */
+    @NonNull
     protected Layout layout;
 
+    /**
+     * Get a builder.
+     *
+     * @return Builder
+     */
     public static BaseElement.Builder<PanelElement> builder() {
         return PanelElement::new;
     }
 
     protected PanelElement(Identifier id) {
         super(id);
+        this.children = new ArrayList<>();
         this.layout = Layout.absolute();
     }
 
     /**
-     * Set the layout.
+     * Add a child.
      *
-     * @param layout Layout. If null, absolute layout will be used.
+     * @param child Child
+     * @apiNote The child cannot be a descendant of the panel.
      */
-    public void setLayout(Layout layout) {
-        if (layout == null) {
-            layout = Layout.absolute();
-        }
-        this.layout = layout;
-    }
-
     public void addChild(BaseElement child) {
         for (PanelElement parent = this; parent != null; parent = parent.getParent()) {
             if (parent.getId().equals(child.getId())) {
@@ -74,11 +84,21 @@ public class PanelElement extends BaseElement {
         child.setParent(this);
     }
 
+    /**
+     * Remove a child.
+     *
+     * @param child Child
+     */
     public void removeChild(BaseElement child) {
         children.remove(child);
         child.setParent(null);
     }
 
+    /**
+     * Get the children.
+     *
+     * @return The unmodifiable list of the children
+     */
     public List<BaseElement> children() {
         return List.copyOf(children);
     }

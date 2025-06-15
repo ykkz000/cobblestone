@@ -22,7 +22,8 @@ package ykkz000.cobblestone.client.api.hud.draw;
  * Interface for GUI context. The API will not change with Minecraft version.
  *
  * @author ykkz000
- * @apiNote Please do not implement this interface.
+ * @apiNote Please do not implement this interface by yourself. If you need to use the implementation, use or extend {@link ykkz000.cobblestone.client.impl.hud.GuiContextImpl}.
+ * @see ykkz000.cobblestone.client.impl.hud.GuiContextImpl
  */
 public interface GuiContext {
     void pushMatrix();
