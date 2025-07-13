@@ -21,6 +21,8 @@ package ykkz000.cobblestone.client.api.hud.element;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
 import ykkz000.cobblestone.client.api.hud.draw.DrawUtils;
 import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
@@ -35,6 +37,7 @@ import ykkz000.cobblestone.client.api.hud.layout.Position;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
+@Environment(EnvType.CLIENT)
 public class TextureElement extends BaseElement {
     /**
      * Texture id. Default is null. If null, nothing will be drawn.

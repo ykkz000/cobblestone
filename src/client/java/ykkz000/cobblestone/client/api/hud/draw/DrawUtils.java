@@ -18,6 +18,8 @@
 
 package ykkz000.cobblestone.client.api.hud.draw;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Item;
@@ -33,6 +35,7 @@ import ykkz000.cobblestone.client.impl.hud.GuiContextImpl;
  *
  * @author ykkz000
  */
+@Environment(EnvType.CLIENT)
 public final class DrawUtils {
     private DrawUtils() {
     }

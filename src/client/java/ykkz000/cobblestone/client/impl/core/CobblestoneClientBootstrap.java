@@ -16,33 +16,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.impl.hud;
+package ykkz000.cobblestone.client.impl.core;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
-import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * GUI context implementation.
- *
- * @param drawContext Draw context
  * @author ykkz000
  */
 @Environment(EnvType.CLIENT)
-public record GuiContextImpl(DrawContext drawContext) implements GuiContext {
-    @Override
-    public void pushMatrix() {
-        drawContext.getMatrices().push();
-    }
-
-    @Override
-    public void translate(double x, double y) {
-        drawContext.getMatrices().translate(x, y, 0);
-    }
-
-    @Override
-    public void popMatrix() {
-        drawContext.getMatrices().pop();
-    }
+public class CobblestoneClientBootstrap {
+    /**
+     * Mod client main classes.
+     */
+    public static final List<Class<?>> MOD_CLIENT_MAIN_CLASSES = new ArrayList<>();
 }

@@ -16,33 +16,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.impl.hud;
+package ykkz000.cobblestone.api.core.annotation;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
-import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
+import java.lang.annotation.*;
 
 /**
- * GUI context implementation.
+ * Annotation for classes that should be automatically bootstrapped.
+ * <p>You may use this annotation on those classes that define Items, Blocks, Entities, etc.</p>
  *
- * @param drawContext Draw context
  * @author ykkz000
+ * @apiNote You can use this annotation on any side. And if your class only be used on one side, you can use {@link net.fabricmc.api.Environment} to specify the side.
  */
-@Environment(EnvType.CLIENT)
-public record GuiContextImpl(DrawContext drawContext) implements GuiContext {
-    @Override
-    public void pushMatrix() {
-        drawContext.getMatrices().push();
-    }
-
-    @Override
-    public void translate(double x, double y) {
-        drawContext.getMatrices().translate(x, y, 0);
-    }
-
-    @Override
-    public void popMatrix() {
-        drawContext.getMatrices().pop();
-    }
+@Retention(RetentionPolicy.CLASS)
+@Target(ElementType.TYPE)
+@Documented
+public @interface AutoBootstrap {
 }

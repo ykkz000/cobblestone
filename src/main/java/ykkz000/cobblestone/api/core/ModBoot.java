@@ -16,33 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.impl.hud;
+package ykkz000.cobblestone.api.core;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
-import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
+import ykkz000.cobblestone.impl.core.CobblestoneBootstrap;
 
 /**
- * GUI context implementation.
+ * The bootstrap class for mods. You may only need to add this code to your mod's main class for common side:
+ * <code>
+ * <pre>
+ *     public void onInitialize() {
+ *         new ModBoot(Your.class).start();
+ *     }
+ * </pre>
+ * </code>
  *
- * @param drawContext Draw context
  * @author ykkz000
  */
-@Environment(EnvType.CLIENT)
-public record GuiContextImpl(DrawContext drawContext) implements GuiContext {
-    @Override
-    public void pushMatrix() {
-        drawContext.getMatrices().push();
+public class ModBoot {
+    private final Class<?> mainClass;
+
+    public ModBoot(Class<?> mainClass) {
+        this.mainClass = mainClass;
     }
 
-    @Override
-    public void translate(double x, double y) {
-        drawContext.getMatrices().translate(x, y, 0);
-    }
-
-    @Override
-    public void popMatrix() {
-        drawContext.getMatrices().pop();
+    /**
+     * Start the mod.
+     */
+    public void start() {
+        CobblestoneBootstrap.MOD_MAIN_CLASSES.add(mainClass);
     }
 }

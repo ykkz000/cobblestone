@@ -22,6 +22,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
 import ykkz000.cobblestone.client.api.hud.HudSystem;
 import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
@@ -36,6 +38,7 @@ import ykkz000.cobblestone.client.api.hud.layout.Size;
  */
 @Getter
 @Setter
+@Environment(EnvType.CLIENT)
 public abstract class BaseElement {
     /**
      * Element id.

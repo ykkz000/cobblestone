@@ -19,6 +19,8 @@
 package ykkz000.cobblestone.client.api.hud;
 
 import lombok.NonNull;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
@@ -37,6 +39,7 @@ import java.util.Map;
  *
  * @author ykkz000
  */
+@Environment(EnvType.CLIENT)
 public final class HudSystem {
     private static final Identifier ROOT_ID = Identifier.of("cobblestone", "root");
     private static final Map<Identifier, BaseElement> ELEMENTS = new HashMap<>();

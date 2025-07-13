@@ -18,6 +18,8 @@
 
 package ykkz000.cobblestone.client.api.hud.layout;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import ykkz000.cobblestone.client.api.hud.element.BaseElement;
 import ykkz000.cobblestone.client.api.hud.element.PanelElement;
 
@@ -30,6 +32,7 @@ import java.util.List;
  * @apiNote Layout will calculate the true position of the children before rendering the children every frame.
  */
 @FunctionalInterface
+@Environment(EnvType.CLIENT)
 public interface Layout {
     /**
      * Get an absolute layout.

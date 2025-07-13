@@ -4,6 +4,7 @@
   "package": "ykkz000.cobblestone.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "core.BootstrapMixin",
     "data.LivingEntityMixin",
     "event.EntityMixin",
     "event.ServerPlayerEntityMixin"

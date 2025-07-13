@@ -18,11 +18,15 @@
 
 package ykkz000.cobblestone.client.api.hud.layout;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 /**
  * Position of an element.
  *
  * @author ykkz000
  */
+@Environment(EnvType.CLIENT)
 public record Position(int x, int y) {
     public static final Position DEFAULT_POSITION = new Position(0, 0);
 }

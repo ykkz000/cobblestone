@@ -18,11 +18,15 @@
 
 package ykkz000.cobblestone.client.api.hud.layout;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 /**
  * Size of an element.
  *
  * @author ykkz000
  */
+@Environment(EnvType.CLIENT)
 public record Size(int width, int height) {
     public static final Size DEFAULT_SIZE = new Size(0, 0);
 }

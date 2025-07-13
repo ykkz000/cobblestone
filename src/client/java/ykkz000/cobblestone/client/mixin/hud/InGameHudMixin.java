@@ -18,6 +18,8 @@
 
 package ykkz000.cobblestone.client.mixin.hud;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -34,9 +36,10 @@ import ykkz000.cobblestone.client.impl.hud.GuiContextImpl;
  * @author ykkz000
  */
 @Mixin(InGameHud.class)
+@Environment(EnvType.CLIENT)
 public abstract class InGameHudMixin {
     @Inject(method = "render(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V", at = @At("RETURN"))
-    private void renderCustomHuds(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void renderCustomHud(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         HudSystem.render(new GuiContextImpl(context), tickCounter);
     }
 }

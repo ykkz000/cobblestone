@@ -18,6 +18,9 @@
 
 package ykkz000.cobblestone.client.api.hud.draw;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 /**
  * Interface for GUI context. The API will not change with Minecraft version.
  *
@@ -25,6 +28,7 @@ package ykkz000.cobblestone.client.api.hud.draw;
  * @apiNote Please do not implement this interface by yourself. If you need to use the implementation, use or extend {@link ykkz000.cobblestone.client.impl.hud.GuiContextImpl}.
  * @see ykkz000.cobblestone.client.impl.hud.GuiContextImpl
  */
+@Environment(EnvType.CLIENT)
 public interface GuiContext {
     void pushMatrix();
     void translate(double x, double y);
