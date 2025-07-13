@@ -18,10 +18,7 @@
 
 package ykkz000.cobblestone.test.core;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.*;
 import net.minecraft.Bootstrap;
 import net.minecraft.SharedConstants;
 import net.minecraft.item.Item;
@@ -39,6 +36,7 @@ import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
 public class ModBootTest {
     private static boolean commonSideStarted = false;
     private static boolean clientSideStarted = false;
+    private static boolean dedicatedServerSideStarted = false;
 
     @AutoBootstrap
     private static class CommonSideCommonClass {
@@ -62,6 +60,14 @@ public class ModBootTest {
         }
     }
 
+    @AutoBootstrap
+    @Environment(EnvType.CLIENT)
+    private static class DedicatedServerSideCommonClass {
+        static {
+            dedicatedServerSideStarted = true;
+        }
+    }
+
     public static class TestModInitializer implements ModInitializer {
         @Override
         public void onInitialize() {
@@ -76,6 +82,13 @@ public class ModBootTest {
         }
     }
 
+    public static class TestDedicatedServerModInitializer implements DedicatedServerModInitializer {
+        @Override
+        public void onInitializeServer() {
+            new ModBoot(TestDedicatedServerModInitializer.class).start();
+        }
+    }
+
 
     @BeforeEach
     public void setup() {
@@ -85,6 +98,8 @@ public class ModBootTest {
         testModInitializer.onInitialize();
         TestClientModInitializer testClientModInitializer = new TestClientModInitializer();
         testClientModInitializer.onInitializeClient();
+        TestDedicatedServerModInitializer testDedicatedServerModInitializer = new TestDedicatedServerModInitializer();
+        testDedicatedServerModInitializer.onInitializeServer();
     }
 
     @Test
@@ -100,5 +115,10 @@ public class ModBootTest {
     @Test
     public void testClientSideCommonClass() {
         Assertions.assertTrue(clientSideStarted);
+    }
+
+    @Test
+    public void testDedicatedServerSideCommonClass() {
+        Assertions.assertTrue(dedicatedServerSideStarted);
     }
 }

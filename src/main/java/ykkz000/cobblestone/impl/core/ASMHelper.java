@@ -71,17 +71,17 @@ public final class ASMHelper {
             annotationNodes.addAll(classNode.invisibleAnnotations);
         }
         return annotationNodes.stream()
-                        .filter(annotationNode -> annotationNode.desc.equals(Type.getType(annotation).getDescriptor()))
-                        .map(annotationNode -> {
-                            if (annotationNode.values == null) {
-                                return false;
-                            }
-                            for (int i = 0; i < annotationNode.values.size(); i += 2) {
-                                if (key.equals(annotationNode.values.get(i)) && value.equals(annotationNode.values.get(i + 1))) {
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }).anyMatch(b -> true);
+                .filter(annotationNode -> annotationNode.desc.equals(Type.getType(annotation).getDescriptor()))
+                .map(annotationNode -> {
+                    if (annotationNode.values == null) {
+                        return false;
+                    }
+                    for (int i = 0; i < annotationNode.values.size(); i += 2) {
+                        if (key.equals(annotationNode.values.get(i)) && value.equals(annotationNode.values.get(i + 1))) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).anyMatch(b -> true);
     }
 }
