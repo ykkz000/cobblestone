@@ -18,24 +18,18 @@
 
 package ykkz000.cobblestone.client.mixin.core;
 
-import lombok.AllArgsConstructor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.ClientBootstrap;
-import org.objectweb.asm.AnnotationVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AnnotationNode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
-import ykkz000.cobblestone.client.impl.core.CobblestoneClientBootstrap;
+import ykkz000.cobblestone.impl.core.ASMHelper;
 import ykkz000.cobblestone.impl.core.ClassScanner;
-
-import java.util.Optional;
+import ykkz000.cobblestone.impl.core.CobblestoneBootstrap;
 
 /**
  * Mixin for ClientBootstrap. This mixin is used to auto bootstrap mods.
@@ -54,32 +48,10 @@ public abstract class ClientBootstrapMixin {
             return;
         }
         ClassScanner scanner = new ClassScanner();
-        CobblestoneClientBootstrap.MOD_CLIENT_MAIN_CLASSES.forEach(mainClass -> {
+        CobblestoneBootstrap.MOD_MAIN_CLASSES.forEach(mainClass -> {
             try {
-                scanner.scan(mainClass.getPackage().getName(), mainClass, AutoBootstrap.class, classNode -> {
-                    Optional<AnnotationNode> environmentNodeOptional = classNode.visibleAnnotations.stream()
-                            .filter(annotationNode -> annotationNode.desc.equals(Type.getType(Environment.class).getDescriptor()))
-                            .findAny();
-                    if (environmentNodeOptional.isEmpty()) {
-                        return false;
-                    }
-                    AnnotationNode environmentNode = environmentNodeOptional.get();
-                    @AllArgsConstructor
-                    class LambdaBoolean {
-                        boolean value;
-                    }
-                    LambdaBoolean shouldBootstrap = new LambdaBoolean(false);
-                    environmentNode.accept(new AnnotationVisitor(Opcodes.ASM9) {
-                        @Override
-                        public void visitEnum(String name, String descriptor, String value) {
-                            if ("value".equals(name) && EnvType.CLIENT.name().equals(value)) {
-                                shouldBootstrap.value = true;
-                            }
-                            super.visitEnum(name, descriptor, value);
-                        }
-                    });
-                    return shouldBootstrap.value;
-                }, Class::forName);
+                scanner.scan(mainClass.getPackage().getName(), mainClass, AutoBootstrap.class,
+                        classNode -> ASMHelper.checkAnnotationValue(classNode, Environment.class, "value", EnvType.CLIENT.name()), Class::forName);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

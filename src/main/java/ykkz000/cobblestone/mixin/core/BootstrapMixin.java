@@ -20,16 +20,21 @@ package ykkz000.cobblestone.mixin.core;
 
 import net.fabricmc.api.Environment;
 import net.minecraft.Bootstrap;
-import org.objectweb.asm.Type;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
+import ykkz000.cobblestone.impl.core.ASMHelper;
 import ykkz000.cobblestone.impl.core.ClassScanner;
 import ykkz000.cobblestone.impl.core.CobblestoneBootstrap;
 
+/**
+ * Mixin for Bootstrap. This mixin is used to auto bootstrap mods.
+ *
+ * @author ykkz000
+ */
 @Mixin(Bootstrap.class)
 public abstract class BootstrapMixin {
     @Shadow
@@ -43,9 +48,8 @@ public abstract class BootstrapMixin {
         ClassScanner scanner = new ClassScanner();
         CobblestoneBootstrap.MOD_MAIN_CLASSES.forEach(mainClass -> {
             try {
-                scanner.scan(mainClass.getPackage().getName(), mainClass, AutoBootstrap.class, classNode -> classNode.visibleAnnotations.stream()
-                        .filter(annotationNode -> annotationNode.desc.equals(Type.getType(Environment.class).getDescriptor()))
-                        .findAny().isEmpty(), Class::forName);
+                scanner.scan(mainClass.getPackage().getName(), mainClass, AutoBootstrap.class,
+                        classNode -> !ASMHelper.checkAnnotation(classNode, Environment.class), Class::forName);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

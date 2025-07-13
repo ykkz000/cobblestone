@@ -21,7 +21,7 @@ package ykkz000.cobblestone.api.core;
 import ykkz000.cobblestone.impl.core.CobblestoneBootstrap;
 
 /**
- * The bootstrap class for mods. You may only need to add this code to your mod's main class for common side:
+ * The bootstrap class for mods. You may only need to add this code to your mod's main class:
  * <code>
  * <pre>
  *     public void onInitialize() {

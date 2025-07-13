@@ -18,10 +18,8 @@
 
 package ykkz000.cobblestone.impl.core;
 
-import lombok.SneakyThrows;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 
 import java.io.File;
@@ -31,7 +29,6 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -99,20 +96,9 @@ public class ClassScanner {
     }
 
     private void processClass(ClassNode classNode, Class<?> annotation, ClassScannerCheckCallback checkCallback, ClassScannerCallback callback) throws Exception {
-        String className = Type.getObjectType(classNode.name).getClassName();
-        if (classNode.visibleAnnotations == null) {
-            return;
+        if (ASMHelper.checkAnnotation(classNode, annotation) && (checkCallback == null || checkCallback.checkClass(classNode))) {
+            callback.onClassScanned(Type.getObjectType(classNode.name).getClassName());
         }
-        Optional<AnnotationNode> beanNodeOptional = classNode.visibleAnnotations.stream()
-                .filter(annotationNode -> annotationNode.desc.equals(Type.getType(annotation).getDescriptor()))
-                .findAny();
-        if (beanNodeOptional.isEmpty()) {
-            return;
-        }
-        if (checkCallback != null && !checkCallback.checkClass(classNode)) {
-            return;
-        }
-        callback.onClassScanned(className);
     }
 
     @FunctionalInterface
