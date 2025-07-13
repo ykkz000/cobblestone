@@ -8,6 +8,8 @@ English | [简体中文](README.zh_CN.md)
 Cobblestone API is a foundational toolkit designed specifically for Minecraft mod developers, providing efficient data persistence and event management solutions to significantly streamline mod development workflows.
 
 ## Core Modules
+### Core Module
+Core module supports you to automatically bootstrap some class so that you not need to load them manually.
 ### Data Module
 Delivers advanced data persistence capabilities:
 - **Entity Data Extension**: Custom data binding through injection into `LivingEntity` class

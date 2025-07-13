@@ -19,7 +19,11 @@
 package ykkz000.cobblestone.impl.core;
 
 import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ASM helper.
@@ -38,7 +42,14 @@ public final class ASMHelper {
      * @return True if the class has the annotation, false otherwise
      */
     public static boolean checkAnnotation(ClassNode classNode, Class<?> annotation) {
-        return classNode.visibleAnnotations != null && classNode.visibleAnnotations.stream()
+        List<AnnotationNode> annotationNodes = new ArrayList<>();
+        if (classNode.visibleAnnotations != null) {
+            annotationNodes.addAll(classNode.visibleAnnotations);
+        }
+        if (classNode.invisibleAnnotations != null) {
+            annotationNodes.addAll(classNode.invisibleAnnotations);
+        }
+        return annotationNodes.stream()
                 .anyMatch(annotationNode -> annotationNode.desc.equals(Type.getType(annotation).getDescriptor()));
     }
 
@@ -51,16 +62,26 @@ public final class ASMHelper {
      * @param value      Value
      * @return True if the class has the annotation with the value, false otherwise
      */
-    public static boolean checkAnnotationValue(ClassNode classNode, Class<?> annotation, String key, String value) {
-        return classNode.visibleAnnotations != null && classNode.visibleAnnotations.stream()
-                .filter(annotationNode -> annotationNode.desc.equals(Type.getType(annotation).getDescriptor()))
-                .map(annotationNode -> {
-                    for (int i = 0; i < annotationNode.values.size(); i += 2) {
-                        if (key.equals(annotationNode.values.get(i)) && value.equals(annotationNode.values.get(i + 1))) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }).anyMatch(b -> true);
+    public static boolean checkAnnotationValue(ClassNode classNode, Class<?> annotation, String key, Object value) {
+        List<AnnotationNode> annotationNodes = new ArrayList<>();
+        if (classNode.visibleAnnotations != null) {
+            annotationNodes.addAll(classNode.visibleAnnotations);
+        }
+        if (classNode.invisibleAnnotations != null) {
+            annotationNodes.addAll(classNode.invisibleAnnotations);
+        }
+        return annotationNodes.stream()
+                        .filter(annotationNode -> annotationNode.desc.equals(Type.getType(annotation).getDescriptor()))
+                        .map(annotationNode -> {
+                            if (annotationNode.values == null) {
+                                return false;
+                            }
+                            for (int i = 0; i < annotationNode.values.size(); i += 2) {
+                                if (key.equals(annotationNode.values.get(i)) && value.equals(annotationNode.values.get(i + 1))) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }).anyMatch(b -> true);
     }
 }

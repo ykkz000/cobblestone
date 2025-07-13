@@ -56,7 +56,7 @@ public class ClassScanner {
             String protocol = url.getProtocol();
             if ("file".equals(protocol)) {
                 File file = new File(URLDecoder.decode(url.getFile(), StandardCharsets.UTF_8));
-                scanBeansInDirectory(file, clazz, checkCallback, callback);
+                scanBeansInDirectory(file, annotation, checkCallback, callback);
             } else if ("jar".equals(protocol)) {
                 JarURLConnection jarUrlConnection = (JarURLConnection) url.openConnection();
                 JarFile jarFile = jarUrlConnection.getJarFile();

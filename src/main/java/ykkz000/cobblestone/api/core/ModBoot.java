@@ -18,14 +18,17 @@
 
 package ykkz000.cobblestone.api.core;
 
-import ykkz000.cobblestone.impl.core.CobblestoneBootstrap;
+import net.fabricmc.api.*;
+import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
+import ykkz000.cobblestone.impl.core.ASMHelper;
+import ykkz000.cobblestone.impl.core.ClassScanner;
 
 /**
- * The bootstrap class for mods. You may only need to add this code to your mod's main class:
+ * The bootstrap class for mods. You may only need to add this code to your mod's main class on every side:
  * <code>
  * <pre>
  *     public void onInitialize() {
- *         new ModBoot(Your.class).start();
+ *         new ModBoot(ThisMain.class).start();
  *     }
  * </pre>
  * </code>
@@ -34,15 +37,35 @@ import ykkz000.cobblestone.impl.core.CobblestoneBootstrap;
  */
 public class ModBoot {
     private final Class<?> mainClass;
+    private final EnvType envType;
 
     public ModBoot(Class<?> mainClass) {
         this.mainClass = mainClass;
+        if (ModInitializer.class.isAssignableFrom(mainClass)) {
+            this.envType = null;
+        } else if (ClientModInitializer.class.isAssignableFrom(mainClass)) {
+            this.envType = EnvType.CLIENT;
+        } else if (DedicatedServerModInitializer.class.isAssignableFrom(mainClass)) {
+            this.envType = EnvType.SERVER;
+        } else {
+            throw new IllegalArgumentException("The main class must implement ModInitializer, ClientModInitializer or DedicatedServerModInitializer");
+        }
     }
 
     /**
      * Start the mod.
      */
     public void start() {
-        CobblestoneBootstrap.MOD_MAIN_CLASSES.add(mainClass);
+        ClassScanner scanner = new ClassScanner();
+        try {
+            scanner.scan(this.mainClass.getPackage().getName(), this.mainClass, AutoBootstrap.class,
+                    classNode -> switch (this.envType) {
+                        case null -> !ASMHelper.checkAnnotation(classNode, Environment.class);
+                        case CLIENT, SERVER ->
+                                ASMHelper.checkAnnotationValue(classNode, Environment.class, "value", this.envType.name());
+                    }, Class::forName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
