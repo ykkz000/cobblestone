@@ -30,9 +30,16 @@ import ykkz000.cobblestone.impl.core.ClassScanner;
  *     public void onInitialize() {
  *         new ModBoot(ThisMain.class).start();
  *     }
+ *
+ *     public void onInitializeClient() {
+ *        new ModBoot(ThisClientMain.class).start();
+ *     }
+ *
+ *     public void onInitializeServer() {
+ *         new ModBoot(ThisDedicatedServerMain.class).start();
+ *     }
  * </pre>
  * </code>
- *
  * @author ykkz000
  */
 public class ModBoot {
