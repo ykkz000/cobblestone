@@ -58,6 +58,7 @@ public abstract class LivingEntityMixin implements ExtraDataProvider {
     @Inject(method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("RETURN"))
     public void readExtendedDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         extendedData.clear();
+        nbt = nbt.getCompound("cobblestone_extended_data");
         for (String key : nbt.getKeys()) {
             extendedData.put(Identifier.tryParse(key), nbt.getCompound(key));
         }
@@ -65,8 +66,10 @@ public abstract class LivingEntityMixin implements ExtraDataProvider {
 
     @Inject(method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("RETURN"))
     public void writeExtendedDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+        NbtCompound extendedDataNbt = new NbtCompound();
         for (Identifier key : extendedData.keySet()) {
-            nbt.put(key.toString(), extendedData.get(key));
+            extendedDataNbt.put(key.toString(), extendedData.get(key));
         }
+        nbt.put("cobblestone_extended_data", extendedDataNbt);
     }
 }

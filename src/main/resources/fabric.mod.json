@@ -23,7 +23,7 @@
   ],
   "custom": {
     "loom:injected_interfaces": {
-      "net/minecraft/class_3222": ["ykkz000/cobblestone/api/data/ExtraDataProvider"]
+      "net/minecraft/class_1309": ["ykkz000/cobblestone/api/data/ExtraDataProvider"]
     }
   },
   "depends": {
