@@ -32,14 +32,14 @@ import ykkz000.cobblestone.api.core.ModBoot;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
 
 public class ModBootTest {
-    private static boolean commonSideStarted = false;
-    private static boolean clientSideStarted = false;
-    private static boolean dedicatedServerSideStarted = false;
+    private static int commonSideCount = 0;
+    private static int clientSideCount = 0;
+    private static int dedicatedServerSideCount = 0;
 
     @AutoBootstrap
     private static class CommonSideCommonClass {
         static {
-            commonSideStarted = true;
+            commonSideCount++;
         }
     }
 
@@ -54,7 +54,7 @@ public class ModBootTest {
     @Environment(EnvType.CLIENT)
     private static class ClientSideCommonClass {
         static {
-            clientSideStarted = true;
+            clientSideCount++;
         }
     }
 
@@ -62,7 +62,7 @@ public class ModBootTest {
     @Environment(EnvType.CLIENT)
     private static class DedicatedServerSideCommonClass {
         static {
-            dedicatedServerSideStarted = true;
+            dedicatedServerSideCount++;
         }
     }
 
@@ -102,7 +102,7 @@ public class ModBootTest {
 
     @Test
     public void testCommonSideCommonClass() {
-        Assertions.assertTrue(commonSideStarted);
+        Assertions.assertEquals(1, commonSideCount);
     }
 
     @Test
@@ -112,11 +112,11 @@ public class ModBootTest {
 
     @Test
     public void testClientSideCommonClass() {
-        Assertions.assertTrue(clientSideStarted);
+        Assertions.assertEquals(1, clientSideCount);
     }
 
     @Test
     public void testDedicatedServerSideCommonClass() {
-        Assertions.assertTrue(dedicatedServerSideStarted);
+        Assertions.assertEquals(1, dedicatedServerSideCount);
     }
 }
