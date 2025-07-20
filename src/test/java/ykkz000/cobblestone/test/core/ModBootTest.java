@@ -22,10 +22,8 @@ import net.fabricmc.api.*;
 import net.minecraft.Bootstrap;
 import net.minecraft.SharedConstants;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +46,7 @@ public class ModBootTest {
     @AutoBootstrap
     private static class CommonSideRegistryClass {
         static {
-            Items.register(RegistryKey.of(RegistryKeys.ITEM, Identifier.of("cobblestone_api_test:test_item")), Item::new, new Item.Settings());
+            Registry.register(Registries.ITEM, Identifier.of("cobblestone_api_test:test_item"), new Item(new Item.Settings()));
         }
     }
 

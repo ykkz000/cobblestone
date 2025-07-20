@@ -21,7 +21,6 @@ package ykkz000.cobblestone.client.api.hud.draw;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -112,7 +111,7 @@ public final class DrawUtils {
      * @param textureSize Size of the texture
      */
     public static void drawTexture(GuiContext context, Identifier textureId, Position position, Size size, Position uv, Size textureSize) {
-        ((GuiContextImpl) context).drawContext().drawGuiTexture(RenderLayer::getGuiTextured, textureId, textureSize.width(), textureSize.height(), uv.x(), uv.y(), position.x(), position.y(), size.width(), size.height());
+        ((GuiContextImpl) context).drawContext().drawGuiTexture(textureId, textureSize.width(), textureSize.height(), uv.x(), uv.y(), position.x(), position.y(), size.width(), size.height());
     }
 
     /**

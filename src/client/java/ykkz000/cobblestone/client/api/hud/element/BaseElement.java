@@ -82,7 +82,7 @@ public abstract class BaseElement {
     @NonNull
     protected Position truePosition;
 
-    protected BaseElement(Identifier id) {
+    protected BaseElement(@NonNull Identifier id) {
         this.id = id;
         this.parent = null;
         this.horizontalAlignment = Layout.Alignment.START;
