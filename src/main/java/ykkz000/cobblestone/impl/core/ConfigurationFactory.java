@@ -49,13 +49,6 @@ public class ConfigurationFactory {
     @SneakyThrows
     public void process(String className) {
         Class<?> clazz = Class.forName(className);
-        List<String> paths = Arrays.stream(clazz.getAnnotation(Configuration.class).path()).toList();
-        InputStream inputStream = paths.stream()
-                .filter(path -> FileHelper.checkPath(clazz, path))
-                .findFirst()
-                .map(path -> FileHelper.getInputStreamFromPath(clazz, path))
-                .orElseThrow(() -> new FileNotFoundException("Cannot find the configuration file for " + clazz.getName()));
-        Object instance = this.objectMapper.readValue(inputStream, clazz);
         List<Field> fields = Arrays.stream(clazz.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(ConfigurationInstance.class))
                 .toList();
@@ -67,6 +60,16 @@ public class ConfigurationFactory {
             throw new IllegalArgumentException("The field " + field.getName() + " in " + clazz.getName() + " is not static");
         }
         field.setAccessible(true);
+        if (field.get(null) != null) {
+            return; // Ignore if the field is already filled.
+        }
+        List<String> paths = Arrays.stream(clazz.getAnnotation(Configuration.class).path()).toList();
+        InputStream inputStream = paths.stream()
+                .filter(path -> FileHelper.checkPath(clazz, path))
+                .findFirst()
+                .map(path -> FileHelper.getInputStreamFromPath(clazz, path))
+                .orElseThrow(() -> new FileNotFoundException("Cannot find the configuration file for " + clazz.getName()));
+        Object instance = this.objectMapper.readValue(inputStream, clazz);
         field.set(null, instance);
     }
 }

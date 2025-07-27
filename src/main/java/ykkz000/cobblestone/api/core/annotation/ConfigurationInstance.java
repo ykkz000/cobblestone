@@ -24,7 +24,7 @@ import java.lang.annotation.*;
  * Annotation to specify that the field should be autofill with the instance of the configuration class.
  *
  * @author ykkz000
- * @apiNote This annotation can only be used on only one field in a class. And the field must be static.
+ * @apiNote This annotation can only be used on only one field in a class. And the field must be static. Please don't fill the field manually.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

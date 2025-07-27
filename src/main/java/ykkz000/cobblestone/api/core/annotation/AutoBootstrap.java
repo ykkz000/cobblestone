@@ -18,6 +18,8 @@
 
 package ykkz000.cobblestone.api.core.annotation;
 
+import ykkz000.cobblestone.api.core.ModBoot;
+
 import java.lang.annotation.*;
 
 /**
@@ -26,6 +28,7 @@ import java.lang.annotation.*;
  *
  * @author ykkz000
  * @apiNote You can use this annotation on any side. And if your class only be used on one side, you can use {@link net.fabricmc.api.Environment} to specify the side.
+ * @apiNote The time to load the class is when the {@link ModBoot#start()}.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)

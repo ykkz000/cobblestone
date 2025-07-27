@@ -18,6 +18,9 @@
 
 package ykkz000.cobblestone.api.core.annotation;
 
+import ykkz000.cobblestone.api.core.ConfigurationPreloader;
+import ykkz000.cobblestone.api.core.ModBoot;
+
 import java.lang.annotation.*;
 
 /**
@@ -25,6 +28,7 @@ import java.lang.annotation.*;
  *
  * @author ykkz000
  * @apiNote No need to specify the side.
+ * @apiNote The time to load the class is when the {@link ModBoot#start()}. If you want to load the configuration earlier, you can use this annotation and call the method in the class{@link ConfigurationPreloader}.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
