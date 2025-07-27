@@ -19,7 +19,6 @@
 package ykkz000.cobblestone.test.core;
 
 import net.fabricmc.api.*;
-import net.minecraft.Bootstrap;
 import net.minecraft.SharedConstants;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -30,16 +29,45 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ykkz000.cobblestone.api.core.ModBoot;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
+import ykkz000.cobblestone.api.core.annotation.Configuration;
+import ykkz000.cobblestone.api.core.annotation.ConfigurationInstance;
 
 public class ModBootTest {
     private static int commonSideCount = 0;
     private static int clientSideCount = 0;
     private static int dedicatedServerSideCount = 0;
 
+    @Configuration(path = "classpath:/cobblestone_api_test/test_configuration.json")
+    protected static class ConfigurationClass {
+        @ConfigurationInstance
+        private static ConfigurationClass INSTANCE;
+        private InnerClass a;
+
+        public void setA(InnerClass a) {
+            this.a = a;
+        }
+
+        public InnerClass getA() {
+            return a;
+        }
+
+        protected static class InnerClass {
+            private int b;
+
+            public void setB(int b) {
+                this.b = b;
+            }
+
+            public int getB() {
+                return b;
+            }
+        }
+    }
+
     @AutoBootstrap
     private static class CommonSideCommonClass {
         static {
-            commonSideCount++;
+            commonSideCount += ConfigurationClass.INSTANCE.a.b;
         }
     }
 
@@ -91,7 +119,7 @@ public class ModBootTest {
     @BeforeEach
     public void setup() {
         SharedConstants.createGameVersion();
-        Bootstrap.initialize();
+        net.minecraft.Bootstrap.initialize();
         TestModInitializer testModInitializer = new TestModInitializer();
         testModInitializer.onInitialize();
         TestClientModInitializer testClientModInitializer = new TestClientModInitializer();
@@ -102,7 +130,7 @@ public class ModBootTest {
 
     @Test
     public void testCommonSideCommonClass() {
-        Assertions.assertEquals(1, commonSideCount);
+        Assertions.assertEquals(5, commonSideCount);
     }
 
     @Test

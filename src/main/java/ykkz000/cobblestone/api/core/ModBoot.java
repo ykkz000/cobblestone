@@ -18,10 +18,13 @@
 
 package ykkz000.cobblestone.api.core;
 
+import lombok.SneakyThrows;
 import net.fabricmc.api.*;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
+import ykkz000.cobblestone.api.core.annotation.Configuration;
 import ykkz000.cobblestone.impl.core.ASMHelper;
 import ykkz000.cobblestone.impl.core.ClassScanner;
+import ykkz000.cobblestone.impl.core.ConfigurationFactory;
 
 /**
  * The bootstrap class for mods. You may only need to add this code to your mod's main class on every side:
@@ -40,13 +43,18 @@ import ykkz000.cobblestone.impl.core.ClassScanner;
  *     }
  * </pre>
  * </code>
+ *
  * @author ykkz000
  */
 public class ModBoot {
+    private final ClassScanner classScanner;
+    private final ConfigurationFactory configurationFactory;
     private final Class<?> mainClass;
     private final EnvType envType;
 
     public ModBoot(Class<?> mainClass) {
+        this.classScanner = new ClassScanner();
+        this.configurationFactory = new ConfigurationFactory();
         this.mainClass = mainClass;
         if (ModInitializer.class.isAssignableFrom(mainClass)) {
             this.envType = null;
@@ -62,17 +70,15 @@ public class ModBoot {
     /**
      * Start the mod.
      */
+    @SneakyThrows
     public void start() {
-        ClassScanner scanner = new ClassScanner();
-        try {
-            scanner.scan(this.mainClass.getPackage().getName(), this.mainClass, AutoBootstrap.class,
-                    classNode -> switch (this.envType) {
-                        case null -> !ASMHelper.checkAnnotation(classNode, Environment.class);
-                        case CLIENT, SERVER ->
-                                ASMHelper.checkAnnotationValue(classNode, Environment.class, "value", this.envType.name());
-                    }, Class::forName);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        classScanner.scan(this.mainClass.getPackage().getName(), this.mainClass, Configuration.class,
+                null, configurationFactory::process);
+        classScanner.scan(this.mainClass.getPackage().getName(), this.mainClass, AutoBootstrap.class,
+                classNode -> switch (this.envType) {
+                    case null -> !ASMHelper.checkAnnotation(classNode, Environment.class);
+                    case CLIENT, SERVER ->
+                            ASMHelper.checkAnnotationValue(classNode, Environment.class, "value", this.envType.name());
+                }, Class::forName);
     }
 }
