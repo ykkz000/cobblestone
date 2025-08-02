@@ -89,7 +89,16 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}" }
+    }
+    from("NOTICE") {
+        rename { "${it}" }
+    }
+    from("DEPENDENCIES") {
+        rename { "${it}" }
+    }
+    from("licenses") {
+        rename { "licenses/${it}" }
     }
 }
 
