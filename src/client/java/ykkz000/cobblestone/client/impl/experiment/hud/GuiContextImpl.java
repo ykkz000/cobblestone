@@ -16,21 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.draw;
+package ykkz000.cobblestone.client.impl.experiment.hud;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
+import ykkz000.cobblestone.client.api.experiment.hud.draw.GuiContext;
 
 /**
- * Interface for GUI context. The API will not change with Minecraft version.
+ * GUI context implementation.
  *
+ * @param drawContext Draw context
  * @author ykkz000
- * @apiNote Please do not implement this interface by yourself. If you need to use the implementation, use or extend {@link ykkz000.cobblestone.client.impl.hud.GuiContextImpl}.
- * @see ykkz000.cobblestone.client.impl.hud.GuiContextImpl
  */
 @Environment(EnvType.CLIENT)
-public interface GuiContext {
-    void pushMatrix();
-    void translate(double x, double y);
-    void popMatrix();
+public record GuiContextImpl(DrawContext drawContext) implements GuiContext {
+    @Override
+    public void pushMatrix() {
+        drawContext.getMatrices().push();
+    }
+
+    @Override
+    public void translate(double x, double y) {
+        drawContext.getMatrices().translate(x, y, 0);
+    }
+
+    @Override
+    public void popMatrix() {
+        drawContext.getMatrices().pop();
+    }
 }

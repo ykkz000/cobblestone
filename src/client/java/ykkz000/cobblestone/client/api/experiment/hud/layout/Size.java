@@ -16,17 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.layout;
+package ykkz000.cobblestone.client.api.experiment.hud.layout;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 /**
- * Position of an element.
+ * Size of an element.
  *
  * @author ykkz000
  */
 @Environment(EnvType.CLIENT)
-public record Position(int x, int y) {
-    public static final Position DEFAULT_POSITION = new Position(0, 0);
+public record Size(int width, int height) {
+    public static final Size DEFAULT_SIZE = new Size(0, 0);
 }

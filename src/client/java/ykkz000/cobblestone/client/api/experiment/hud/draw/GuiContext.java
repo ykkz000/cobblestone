@@ -16,17 +16,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.layout;
+package ykkz000.cobblestone.client.api.experiment.hud.draw;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import ykkz000.cobblestone.client.impl.experiment.hud.GuiContextImpl;
 
 /**
- * Size of an element.
+ * Interface for GUI context. The API will not change with Minecraft version.
  *
  * @author ykkz000
+ * @apiNote Please do not implement this interface by yourself. If you need to use the implementation, use or extend {@link GuiContextImpl}.
+ * @see GuiContextImpl
  */
 @Environment(EnvType.CLIENT)
-public record Size(int width, int height) {
-    public static final Size DEFAULT_SIZE = new Size(0, 0);
+public interface GuiContext {
+    void pushMatrix();
+    void translate(double x, double y);
+    void popMatrix();
 }

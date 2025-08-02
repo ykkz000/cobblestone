@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.element;
+package ykkz000.cobblestone.client.api.experiment.hud.element;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,10 +25,10 @@ import lombok.Setter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
-import ykkz000.cobblestone.client.api.hud.draw.DrawUtils;
-import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
-import ykkz000.cobblestone.client.api.hud.layout.Position;
-import ykkz000.cobblestone.client.api.hud.layout.Size;
+import ykkz000.cobblestone.client.api.experiment.hud.draw.DrawUtils;
+import ykkz000.cobblestone.client.api.experiment.hud.draw.GuiContext;
+import ykkz000.cobblestone.client.api.experiment.hud.layout.Position;
+import ykkz000.cobblestone.client.api.experiment.hud.layout.Size;
 
 /**
  * Text element.

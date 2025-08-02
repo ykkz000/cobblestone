@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.mixin.hud;
+package ykkz000.cobblestone.client.mixin.experiment.hud;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,8 +27,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ykkz000.cobblestone.client.api.hud.HudSystem;
-import ykkz000.cobblestone.client.impl.hud.GuiContextImpl;
+import ykkz000.cobblestone.client.api.experiment.hud.HudSystem;
+import ykkz000.cobblestone.client.impl.experiment.hud.GuiContextImpl;
 
 /**
  * Mixin for InGameHud. This mixin is used to render custom HUDs.

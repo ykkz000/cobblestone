@@ -16,12 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud.layout;
+package ykkz000.cobblestone.client.api.experiment.hud.layout;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import ykkz000.cobblestone.client.api.hud.element.BaseElement;
-import ykkz000.cobblestone.client.api.hud.element.PanelElement;
+import ykkz000.cobblestone.client.api.experiment.hud.element.BaseElement;
+import ykkz000.cobblestone.client.api.experiment.hud.element.PanelElement;
 
 import java.util.List;
 

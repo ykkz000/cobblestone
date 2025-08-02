@@ -4,7 +4,7 @@
   "package": "ykkz000.cobblestone.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "hud.InGameHudMixin"
+    "experiment.hud.InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

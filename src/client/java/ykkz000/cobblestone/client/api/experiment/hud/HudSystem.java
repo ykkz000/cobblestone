@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.cobblestone.client.api.hud;
+package ykkz000.cobblestone.client.api.experiment.hud;
 
 import lombok.NonNull;
 import net.fabricmc.api.EnvType;
@@ -24,12 +24,12 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
-import ykkz000.cobblestone.client.api.hud.draw.GuiContext;
-import ykkz000.cobblestone.client.api.hud.element.BaseElement;
-import ykkz000.cobblestone.client.api.hud.element.PanelElement;
-import ykkz000.cobblestone.client.api.hud.layout.Layout;
-import ykkz000.cobblestone.client.api.hud.layout.Position;
-import ykkz000.cobblestone.client.api.hud.layout.Size;
+import ykkz000.cobblestone.client.api.experiment.hud.draw.GuiContext;
+import ykkz000.cobblestone.client.api.experiment.hud.element.BaseElement;
+import ykkz000.cobblestone.client.api.experiment.hud.element.PanelElement;
+import ykkz000.cobblestone.client.api.experiment.hud.layout.Layout;
+import ykkz000.cobblestone.client.api.experiment.hud.layout.Position;
+import ykkz000.cobblestone.client.api.experiment.hud.layout.Size;
 
 import java.util.HashMap;
 import java.util.Map;
