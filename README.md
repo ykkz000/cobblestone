@@ -7,17 +7,17 @@ English | [简体中文](README.zh_CN.md)
 ## Overview
 Cobblestone API is a foundational toolkit designed specifically for Minecraft mod developers, providing efficient data persistence and event management solutions to significantly streamline mod development workflows.
 
-## Core Modules
+## Modules
 ### Core Module
-Core module supports you to automatically bootstrap some class so that you not need to load them manually.
+Core module supports you to automatically bootstrap some class so that you not need to load them manually. At the same time, JSON data can be automatically loaded and automatically bound to Java classes.
 ### Data Module
-Delivers advanced data persistence capabilities:
-- **Entity Data Extension**: Custom data binding through injection into `LivingEntity` class
-- **Intelligent Serialization**: Automatic conversion between Java objects ↔ NBT data
+Delivers data persistence capabilities:
+- **Entity Data Extension**: Custom data binding through injection into `LivingEntity` class.
+- **Intelligent Serialization**: Automatic conversion between Java objects ↔ NBT data.
 
 ### Event Module
 Extends the native event system:
-- **Enhanced Event Hooks**: Expanded coverage of critical game lifecycle points
+- **Event Hooks**: Expanded coverage of critical game lifecycle events.
 
 ## Building
 Use Gradle build tool to compile the project.
